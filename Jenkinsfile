@@ -1,14 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        AWS_REGION = 'ap-south-1'
-        ACCOUNT_ID = '524140443570'
-        REPOSITORY = 'tic-tac-toe'
-    }
-
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -24,11 +17,11 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 sh '''
-                aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+                aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 524140443570.dkr.ecr.ap-south-1.amazonaws.com
 
-                docker tag tic-tac-toe:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY:latest
+                docker tag tic-tac-toe:latest 524140443570.dkr.ecr.ap-south-1.amazonaws.com/tic-tac-toe:latest
 
-                docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPOSITORY:latest
+                docker push 524140443570.dkr.ecr.ap-south-1.amazonaws.com/tic-tac-toe:latest
                 '''
             }
         }
