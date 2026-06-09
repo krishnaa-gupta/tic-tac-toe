@@ -47,9 +47,7 @@ stages {
 
             docker rm -f $CONTAINER_NAME || true
 
-            while docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME; do
-                sleep 2
-            done
+            sleep 5
 
             docker run -d \
               --name $CONTAINER_NAME \
