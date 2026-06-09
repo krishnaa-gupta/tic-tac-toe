@@ -1,64 +1,11 @@
-# Tic Tac Toe
+## CI/CD Workflow
 
-A two-player Tic Tac Toe game built using HTML, CSS, and JavaScript.
+GitHub → Jenkins → Docker Build → AWS ECR → EC2 Docker Deployment
 
 ## Features
 
-- Two-player gameplay
-- Winner detection
-- Draw detection
-- Restart game functionality
-- Responsive design
-- Dark theme UI
-
-## Technologies Used
-
-- HTML
-- CSS
-- JavaScript
-- Docker
-- Nginx
-
-## Project Structure
-
-```text
-tic-tac-toe/
-│
-├── index.html
-├── style.css
-├── script.js
-├── Dockerfile
-└── README.md
-```
-
-## Run Locally
-
-Open:
-
-```text
-index.html
-```
-
-in your browser.
-
-## Docker Build
-
-```bash
-docker build -t tic-tac-toe .
-```
-
-## Run Docker Container
-
-```bash
-docker run -d -p 8080:80 tic-tac-toe
-```
-
-Visit:
-
-```text
-http://localhost:8080
-```
-
-## Author
-
-Krishna Gupta
+- Automated CI/CD Pipeline
+- Dockerized Application
+- AWS ECR Integration
+- EC2 Deployment
+- GitHub Webhook Automation
