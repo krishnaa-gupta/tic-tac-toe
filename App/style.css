@@ -54,22 +54,23 @@ h1 {
 }
 
 .x {
-    color: #00ffff;
+    color: #00BFFF;
     text-shadow:
-        0 0 5px #00ffff,
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff,
-        0 0 80px #00ffff;
+        0 0 5px #00BFFF,
+        0 0 10px #00BFFF,
+        0 0 20px #00BFFF,
+        0 0 40px #00BFFF,
+        0 0 80px #00BFFF;
 }
 
 .o {
-    color: #ffd700;
+    color: #FF3131;
     text-shadow:
-        0 0 5px #ffd700,
-        0 0 10px #ffd700,
-        0 0 20px #ffd700,
-        0 0 40px #ffd700;
+        0 0 5px #FF3131,
+        0 0 10px #FF3131,
+        0 0 20px #FF3131,
+        0 0 40px #FF3131,
+        0 0 80px #FF3131;
 }
 
 button {
