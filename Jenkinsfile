@@ -42,16 +42,24 @@ pipeline {
 
                 docker pull $ECR_REPO:latest
 
-                docker stop $CONTAINER_NAME || true
-
-                docker rm $CONTAINER_NAME || true
+                docker rm -f $CONTAINER_NAME || true
 
                 docker run -d \
-                  --name $CONTAINER_NAME \
-                  -p 80:80 \
-                  $ECR_REPO:latest
+                --name $CONTAINER_NAME \
+                -p 80:80 \
+                $ECR_REPO:latest
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Application deployed successfully!'
+        }
+
+        failure {
+            echo 'Deployment failed!'
         }
     }
 }
