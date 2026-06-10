@@ -1,13 +1,6 @@
-# Tic-Tac-Toe CI/CD Deployment Steps
+# Tic-Tac-Toe Project Setup & Deployment Steps
 
-## Step 1: Create Application
-
-* Create Tic-Tac-Toe application using HTML, CSS and JavaScript.
-* Test application locally.
-
----
-
-## Step 2: Create GitHub Repository
+## 1. Push Code to GitHub
 
 ```bash
 git init
@@ -18,23 +11,7 @@ git remote add origin <repo-url>
 git push -u origin main
 ```
 
----
-
-## Step 3: Create Dockerfile
-
-```dockerfile
-FROM nginx:alpine
-
-COPY App/ /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-```
-
----
-
-## Step 4: Build Docker Image
+## 2. Build Docker Image
 
 ```bash
 docker build -t tic-tac-toe .
@@ -46,9 +23,7 @@ Verify:
 docker images
 ```
 
----
-
-## Step 5: Run Docker Container
+## 3. Run Docker Container
 
 ```bash
 docker run -d -p 80:80 --name tic-tac-toe tic-tac-toe
@@ -60,11 +35,9 @@ Verify:
 docker ps
 ```
 
----
+## 4. Launch Amazon EC2
 
-## Step 6: Launch EC2 Instance
-
-Security Group:
+Allow:
 
 * SSH (22)
 * HTTP (80)
@@ -76,115 +49,42 @@ Connect:
 ssh -i key.pem ec2-user@<public-ip>
 ```
 
----
-
-## Step 7: Install Docker on EC2
+## 5. Install Docker & AWS CLI
 
 ```bash
-sudo yum update -y
 sudo yum install docker -y
-
 sudo systemctl start docker
 sudo systemctl enable docker
-
-sudo usermod -aG docker ec2-user
 ```
-
-Verify:
-
-```bash
-docker --version
-```
-
----
-
-## Step 8: Install AWS CLI
-
-```bash
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-
-unzip awscliv2.zip
-
-sudo ./aws/install
-```
-
-Verify:
-
-```bash
-aws --version
-```
-
-Configure:
 
 ```bash
 aws configure
 ```
 
-Enter:
+## 6. Create Amazon ECR Repository
 
-```text
-AWS Access Key
-AWS Secret Key
-Region
-Output Format
-```
-
----
-
-## Step 9: Create Amazon ECR Repository
-
-AWS Console
-
-→ ECR
-
-→ Create Repository
-
-Repository Name:
-
-```text
-tic-tac-toe
-```
-
-Login:
+Login to ECR:
 
 ```bash
 aws ecr get-login-password --region <region> \
-| docker login \
---username AWS \
+| docker login --username AWS \
 --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
 ```
 
----
-
-## Step 10: Tag Docker Image
+Tag & Push Image:
 
 ```bash
 docker tag tic-tac-toe:latest \
 <account-id>.dkr.ecr.<region>.amazonaws.com/tic-tac-toe:latest
-```
 
----
-
-## Step 11: Push Image to ECR
-
-```bash
 docker push \
 <account-id>.dkr.ecr.<region>.amazonaws.com/tic-tac-toe:latest
 ```
 
----
-
-## Step 12: Install Jenkins
+## 7. Install Jenkins
 
 ```bash
 sudo yum install java-17-amazon-corretto -y
-
-sudo wget -O /etc/yum.repos.d/jenkins.repo \
-https://pkg.jenkins.io/redhat-stable/jenkins.repo
-
-sudo rpm --import \
-https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-
 sudo yum install jenkins -y
 
 sudo systemctl start jenkins
@@ -197,94 +97,43 @@ Access:
 http://<public-ip>:8080
 ```
 
----
+## 8. Configure CI Pipeline
 
-## Step 13: Configure Jenkins
-
-Install Plugins:
-
-* Git
-* Pipeline
-* Docker Pipeline
-* AWS Credentials
-
-Add Credentials:
-
-* GitHub Credentials
-* AWS Credentials
-
----
-
-## Step 14: Create Jenkins Pipeline
-
-Stages:
+Pipeline Stages:
 
 1. Checkout Code
-2. Build Docker Image
-3. Login to ECR
-4. Push Image to ECR
-5. Deploy Container
+2. Test Stage
+3. Build Docker Image
+4. Login to Amazon ECR
+5. Push Image to Amazon ECR
 
----
-
-## Step 15: Configure GitHub Webhook
-
-GitHub Repository
-
-→ Settings
-
-→ Webhooks
-
-→ Add Webhook
-
-Payload URL:
+## 9. Configure GitHub Webhook
 
 ```text
 http://<jenkins-ip>:8080/github-webhook/
 ```
 
-Content Type:
-
-```text
-application/json
-```
-
----
-
-## Step 16: Test CI/CD Pipeline
-
-Make a code change:
+## 10. Test Pipeline
 
 ```bash
 git add .
-git commit -m "Updated Application"
+git commit -m "Code Update"
 git push origin main
 ```
 
-Pipeline Flow:
+Flow:
 
-GitHub → Jenkins → Docker Build → Amazon ECR → EC2 Deployment
+GitHub → Jenkins → Docker Build → Amazon ECR
 
----
-
-## Step 17: Verify Deployment
-
-Check Containers:
-
-```bash
-docker ps
-```
-
-Check Images:
+## 11. Verify
 
 ```bash
 docker images
+docker ps
 ```
 
-Open Browser:
+Open:
 
 ```text
 http://<ec2-public-ip>
 ```
-
-Verify application is running successfully.
