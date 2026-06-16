@@ -1,19 +1,20 @@
-# Tic-Tac-Toe DevOps Project
+# DevOps CI/CD and Monitoring Project
 
-A containerized Tic-Tac-Toe web application demonstrating CI/CD and monitoring using GitHub, Jenkins, Docker, Amazon ECR, Amazon EC2, Prometheus, and Grafana.
+A containerized web application demonstrating Infrastructure as Code (IaC), CI/CD, deployment, and monitoring using Terraform, GitHub, Jenkins, Docker, Amazon ECR, Amazon EC2, Prometheus, and Grafana.
 
 ## Workflow
 
-GitHub → Jenkins → Docker Build → Amazon ECR → Amazon EC2
+Terraform → AWS Infrastructure (EC2)
 
-Monitoring:
+GitHub → Jenkins → Docker Build → Amazon ECR → Amazon EC2
 
 Node Exporter → Prometheus → Grafana
 
 ## Features
 
+* Infrastructure Provisioning with Terraform
 * Automated CI/CD Pipeline
-* Dockerized Web Application
+* Dockerized Application Deployment
 * Amazon ECR Integration
 * Amazon EC2 Hosting
 * GitHub Webhook Automation

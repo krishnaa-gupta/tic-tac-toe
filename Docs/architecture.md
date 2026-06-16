@@ -2,35 +2,21 @@
 
 ## Project Overview
 
-This project demonstrates a CI/CD pipeline and monitoring setup for a containerized Tic-Tac-Toe web application using GitHub, Jenkins, Docker, Amazon ECR, Amazon EC2, Prometheus, and Grafana.
+This project implements Infrastructure as Code (IaC), CI/CD, and monitoring for a containerized application using Terraform, Jenkins, Docker, AWS, Prometheus, and Grafana.
 
 ## Architecture Flow
 
-Developer
+Terraform → AWS Infrastructure (EC2)
 
-→ GitHub Repository
+GitHub → Jenkins → Docker Build → Amazon ECR → Amazon EC2
 
-→ GitHub Webhook
-
-→ Jenkins Pipeline
-
-→ Docker Image Build
-
-→ Amazon ECR
-
-→ Amazon EC2
-
-→ Prometheus
-
-→ Grafana
-
-→ End User
+Node Exporter → Prometheus → Grafana
 
 ## Workflow
 
-1. Developer pushes code to GitHub.
-2. GitHub triggers Jenkins through a webhook.
-3. Jenkins builds and pushes the Docker image to Amazon ECR.
-4. The application runs on an EC2 instance.
-5. Prometheus collects server metrics.
-6. Grafana visualizes the metrics through dashboards.
+1. Terraform provisions AWS EC2 instances.
+2. GitHub webhook triggers the Jenkins pipeline.
+3. Jenkins builds and pushes Docker images to Amazon ECR.
+4. The application is deployed on Amazon EC2.
+5. Prometheus collects metrics from Node Exporter.
+6. Grafana visualizes system metrics through dashboards.
