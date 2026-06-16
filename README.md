@@ -27,6 +27,7 @@ Node Exporter → Prometheus → Grafana
 * App/
 * Docs/
 * Screenshots/
+* terraform/
 * Dockerfile
 * Jenkinsfile
 
