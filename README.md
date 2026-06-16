@@ -1,19 +1,25 @@
-# Tic-Tac-Toe CI Pipeline Project
+# Tic-Tac-Toe DevOps Project
 
-A containerized Tic-Tac-Toe web application demonstrating Continuous Integration using GitHub, Jenkins, Docker, Amazon ECR, and Amazon EC2.
+A containerized Tic-Tac-Toe web application demonstrating CI/CD and monitoring using GitHub, Jenkins, Docker, Amazon ECR, Amazon EC2, Prometheus, and Grafana.
 
-## CI Pipeline Workflow
+## Workflow
 
-GitHub → Jenkins → Docker Build → Amazon ECR
+GitHub → Jenkins → Docker Build → Amazon ECR → Amazon EC2
+
+Monitoring:
+
+Node Exporter → Prometheus → Grafana
 
 ## Features
 
-* Automated CI Pipeline
+* Automated CI/CD Pipeline
 * Dockerized Web Application
 * Amazon ECR Integration
 * Amazon EC2 Hosting
 * GitHub Webhook Automation
 * Jenkins Pipeline as Code
+* Prometheus Monitoring
+* Grafana Dashboards
 
 ## Project Structure
 

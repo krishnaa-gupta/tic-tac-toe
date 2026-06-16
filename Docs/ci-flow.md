@@ -1,11 +1,11 @@
-# CI Pipeline Flow
+# CI/CD Flow
 
-1. Developer pushes code changes to the GitHub repository.
-2. GitHub webhook automatically triggers the Jenkins pipeline.
+1. Developer pushes code to the GitHub repository.
+2. GitHub webhook triggers the Jenkins pipeline.
 3. Jenkins checks out the latest source code.
-4. Jenkins executes the test stage.
-5. Jenkins builds a Docker image using the Dockerfile.
-6. Jenkins tags the Docker image.
-7. Jenkins authenticates with Amazon ECR.
-8. Jenkins pushes the Docker image to Amazon ECR.
-9. The latest Docker image is stored and ready for deployment.
+4. Jenkins builds a Docker image.
+5. Jenkins authenticates with Amazon ECR.
+6. Jenkins pushes the Docker image to Amazon ECR.
+7. The application is deployed on an EC2 instance.
+8. Prometheus collects server metrics.
+9. Grafana displays metrics through dashboards.

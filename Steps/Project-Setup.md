@@ -42,6 +42,7 @@ Allow:
 * SSH (22)
 * HTTP (80)
 * Jenkins (8080)
+* Node Exporter (9100)
 
 Connect:
 
@@ -49,19 +50,7 @@ Connect:
 ssh -i key.pem ec2-user@<public-ip>
 ```
 
-## 5. Install Docker & AWS CLI
-
-```bash
-sudo yum install docker -y
-sudo systemctl start docker
-sudo systemctl enable docker
-```
-
-```bash
-aws configure
-```
-
-## 6. Create Amazon ECR Repository
+## 5. Create Amazon ECR Repository
 
 Login to ECR:
 
@@ -81,23 +70,7 @@ docker push \
 <account-id>.dkr.ecr.<region>.amazonaws.com/tic-tac-toe:latest
 ```
 
-## 7. Install Jenkins
-
-```bash
-sudo yum install java-17-amazon-corretto -y
-sudo yum install jenkins -y
-
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
-```
-
-Access:
-
-```text
-http://<public-ip>:8080
-```
-
-## 8. Configure CI Pipeline
+## 6. Configure Jenkins Pipeline
 
 Pipeline Stages:
 
@@ -107,13 +80,13 @@ Pipeline Stages:
 4. Login to Amazon ECR
 5. Push Image to Amazon ECR
 
-## 9. Configure GitHub Webhook
+## 7. Configure GitHub Webhook
 
 ```text
 http://<jenkins-ip>:8080/github-webhook/
 ```
 
-## 10. Test Pipeline
+## 8. Test Pipeline
 
 ```bash
 git add .
@@ -125,7 +98,37 @@ Flow:
 
 GitHub → Jenkins → Docker Build → Amazon ECR
 
-## 11. Verify
+## 9. Configure Monitoring
+
+Install and configure:
+
+* Node Exporter on Application Server
+* Prometheus on Monitoring Server
+* Grafana on Monitoring Server
+
+## 10. Verify Monitoring
+
+Open:
+
+```text
+http://<monitoring-server-ip>:9090
+```
+
+Prometheus Target Health should show:
+
+```text
+node_exporter UP
+```
+
+Open:
+
+```text
+http://<monitoring-server-ip>:3000
+```
+
+View Grafana Dashboard.
+
+## 11. Verify Application
 
 ```bash
 docker images
